@@ -1,4 +1,5 @@
 using System;
+using nothinbutdotnetprep.utility;
 
 namespace nothinbutdotnetprep.collections
 {
@@ -37,14 +38,14 @@ namespace nothinbutdotnetprep.collections
         {
             get
             {
-                return item => is_published_by(ProductionStudio.Pixar)(item) ||
-                    is_published_by(ProductionStudio.Disney)(item);
+                return new IsPublishedBy(ProductionStudio.Pixar)
+                    .or(new IsPublishedBy(ProductionStudio.Disney)).is_satisfied_by;
             }
         }
 
         public static CriteriaFor<Movie> is_published_by(ProductionStudio studio)
         {
-            return item => item.production_studio == studio;
+            return new IsPublishedBy(studio).is_satisfied_by;
         }
 
         public static CriteriaFor<Movie> is_published_after_year(int year)
@@ -57,9 +58,9 @@ namespace nothinbutdotnetprep.collections
             return item => item.date_published.Year >= startYear && item.date_published.Year <= endYear;
         }
 
-        public static CriteriaFor<Movie> is_of_genre(Genre genre)
+        public static Criteria<Movie> is_of_genre(Genre genre)
         {
-            return item => item.genre == genre;
+            return new AnonymousCriteria<Movie>(item => item.genre == genre);
         }
     }
 }
