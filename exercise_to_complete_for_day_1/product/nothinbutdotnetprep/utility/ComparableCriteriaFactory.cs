@@ -18,6 +18,13 @@ namespace nothinbutdotnetprep.utility
             return new AnonymousCriteria<ItemToFilter>(item => accessor(item).CompareTo(value) > 0);
         }
 
+        public Criteria<ItemToFilter> within_range(PropertyType range_start, PropertyType range_end)
+        {
+            return new AnonymousCriteria<ItemToFilter>(item => 
+                accessor(item).CompareTo(range_start) >= 0
+                && accessor(item).CompareTo(range_end) <= 0);
+        }
+
         public Criteria<ItemToFilter> equal_to(PropertyType value_to_match)
         {
             return original.equal_to(value_to_match);
