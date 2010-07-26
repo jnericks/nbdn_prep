@@ -69,15 +69,17 @@
     <Compile Include="utility\AndCriteria.cs" />
     <Compile Include="utility\AnonymousCriteria.cs" />
     <Compile Include="utility\BinaryCriteria.cs" />
+    <Compile Include="utility\ComparableCriteriaFactory.cs" />
     <Compile Include="utility\Criteria.cs" />
     <Compile Include="utility\CriteriaExtensions.cs" />
+    <Compile Include="utility\CriteriaFactory.cs" />
     <Compile Include="utility\EnumerableExtensions.cs" />
     <Compile Include="utility\FuncExtensions.cs" />
     <Compile Include="utility\NotCriteria.cs" />
     <Compile Include="utility\OrCriteria.cs" />
     <Compile Include="utility\PropertyAccessor.cs" />
     <Compile Include="utility\Where.cs" />
-    <Compile Include="utility\CriteriaFactory.cs" />
+    <Compile Include="utility\BasicCriteriaFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace nothinbutdotnetprep.tests.utilIty
+namespace nothinbutdotnetprep.tests.utility
 {
     public static class CollectionExtensions
     {

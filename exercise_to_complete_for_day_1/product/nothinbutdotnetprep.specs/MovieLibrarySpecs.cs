@@ -5,7 +5,7 @@ using Machine.Specifications;
 using Machine.Specifications.DevelopWithPassion.Extensions;
 using Machine.Specifications.DevelopWithPassion.Rhino;
 using nothinbutdotnetprep.collections;
-using nothinbutdotnetprep.tests.utilIty;
+using nothinbutdotnetprep.tests.utility;
 using nothinbutdotnetprep.utility;
 
 /* The following set of Contexts (TestFixture) are in place to specify the functionality that you need to complete for the MovieLibrary class.
@@ -215,6 +215,8 @@ namespace nothinbutdotnetprep.specs
 
             It should_be_able_to_find_all_movies_published_after_a_certain_year = () =>
             {
+                var criteria = Where<Movie>.has_an(x => x.date_published.Year)
+                    .greater_than(2004);
                 var results = sut.all_movies().all_items_matching(Movie.is_published_after_year(2004));
 
                 results.ShouldContainOnly(the_ring, shrek, theres_something_about_mary);
@@ -229,14 +231,16 @@ namespace nothinbutdotnetprep.specs
 
             It should_be_able_to_find_all_kid_movies = () =>
             {
-                var results = sut.all_movies().all_items_matching(Movie.is_of_genre(Genre.kids));
+                var results = sut.all_movies().all_items_matching(Where
+                    <Movie>.has_a(x => x.genre).equal_to(Genre.kids));
 
                 results.ShouldContainOnly(a_bugs_life, shrek, cars);
             };
 
             It should_be_able_to_find_all_action_movies = () =>
             {
-                var results = sut.all_movies().all_items_matching(Movie.is_of_genre(Genre.action));
+                var results = sut.all_movies().all_items_matching(Where
+                    <Movie>.has_a(x => x.genre).equal_to(Genre.action));
 
                 results.ShouldContainOnly(indiana_jones_and_the_temple_of_doom, pirates_of_the_carribean);
             };
