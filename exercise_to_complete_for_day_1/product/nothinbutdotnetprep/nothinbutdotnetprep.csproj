@@ -72,8 +72,11 @@
     <Compile Include="utility\Criteria.cs" />
     <Compile Include="utility\CriteriaExtensions.cs" />
     <Compile Include="utility\EnumerableExtensions.cs" />
+    <Compile Include="utility\FuncExtensions.cs" />
     <Compile Include="utility\NotCriteria.cs" />
     <Compile Include="utility\OrCriteria.cs" />
+    <Compile Include="utility\PropertyAccessor.cs" />
+    <Compile Include="utility\Where.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

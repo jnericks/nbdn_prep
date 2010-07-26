@@ -34,28 +34,30 @@ namespace nothinbutdotnetprep.collections
             return title;
         }
 
-        public static CriteriaFor<Movie> is_published_by_pixar_or_disney
+        public static Criteria<Movie> is_published_by_pixar_or_disney
         {
             get
             {
                 return new IsPublishedBy(ProductionStudio.Pixar)
-                    .or(new IsPublishedBy(ProductionStudio.Disney)).is_satisfied_by;
+                    .or(new IsPublishedBy(ProductionStudio.Disney));
             }
         }
 
-        public static CriteriaFor<Movie> is_published_by(ProductionStudio studio)
+        public static Criteria<Movie> is_published_by(ProductionStudio studio)
         {
-            return new IsPublishedBy(studio).is_satisfied_by;
+            return new IsPublishedBy(studio);
         }
 
-        public static CriteriaFor<Movie> is_published_after_year(int year)
+        public static Criteria<Movie> is_published_after_year(int year)
         {
-            return item => item.date_published.Year > year;
+            return new AnonymousCriteria<Movie>(item => item.date_published.Year > year);
         }
 
-        public static CriteriaFor<Movie> is_published_within_year_range(int startYear, int endYear)
+        public static Criteria<Movie> is_published_within_year_range(int startYear, int endYear)
         {
-            return item => item.date_published.Year >= startYear && item.date_published.Year <= endYear;
+            return
+                new AnonymousCriteria<Movie>(
+                    item => item.date_published.Year >= startYear && item.date_published.Year <= endYear);
         }
 
         public static Criteria<Movie> is_of_genre(Genre genre)

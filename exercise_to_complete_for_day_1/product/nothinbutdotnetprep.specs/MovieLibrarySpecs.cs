@@ -201,7 +201,10 @@ namespace nothinbutdotnetprep.specs
 
             It should_be_able_to_find_all_movies_not_published_by_pixar = () =>
             {
-                var results = sut.all_movies().all_items_not_matching(Movie.is_published_by(ProductionStudio.Pixar));
+                var results =
+                    sut.all_movies().all_items_matching(
+                        new NotCriteria<Movie>(Movie.is_published_by(ProductionStudio.Pixar)));
+
 
                 results.ShouldNotContain(cars, a_bugs_life);
             };
