@@ -38,22 +38,13 @@ namespace nothinbutdotnetprep.collections
 
         public IEnumerable<Movie> all_movies_published_by_pixar()
         {
-            foreach (var movie in movies)
-            {
-                if (movie.production_studio == ProductionStudio.Pixar) yield return movie;
-            }
+            return select_movies(movie => movie.production_studio == ProductionStudio.Pixar);
         }
 
         public IEnumerable<Movie> all_movies_published_by_pixar_or_disney()
         {
-            foreach (var movie in movies)
-            {
-                if (movie.production_studio == ProductionStudio.Pixar ||
-                    movie.production_studio == ProductionStudio.Disney)
-                {
-                    yield return movie;
-                }
-            }
+            return select_movies(movie => movie.production_studio == ProductionStudio.Pixar
+                || movie.production_studio == ProductionStudio.Disney);
         }
 
         delegate bool MovieCriteria(Movie movie);
@@ -68,30 +59,18 @@ namespace nothinbutdotnetprep.collections
 
         public IEnumerable<Movie> all_movies_not_published_by_pixar()
         {
-            foreach (var movie in movies)
-            {
-                if (movie.production_studio != ProductionStudio.Pixar) yield return movie;
-            }
+            return select_movies(movie => movie.production_studio != ProductionStudio.Pixar);
         }
 
         public IEnumerable<Movie> all_movies_published_between_years(int starting_year, int ending_year)
         {
-            foreach (var movie in movies)
-            {
-                if (movie.date_published.Year >= starting_year &&
-                    movie.date_published.Year <= ending_year)
-                {
-                    yield return movie;
-                }
-            }
+            return select_movies(movie => movie.date_published.Year >= starting_year
+                && movie.date_published.Year <= ending_year);
         }
 
         public IEnumerable<Movie> all_movies_published_after(int year)
         {
-            foreach (var movie in movies)
-            {
-                if (movie.date_published.Year > year) yield return movie;
-            }
+            return select_movies(movie => movie.date_published.Year > year);
         }
 
         public IEnumerable<Movie> sort_all_movies_by_title_ascending
@@ -117,24 +96,12 @@ namespace nothinbutdotnetprep.collections
 
         public IEnumerable<Movie> all_kid_movies()
         {
-            foreach (var movie in movies)
-            {
-                if (movie.genre == Genre.kids)
-                {
-                    yield return movie;
-                }
-            }
+            return select_movies(movie => movie.genre == Genre.kids);
         }
 
         public IEnumerable<Movie> all_action_movies()
         {
-            foreach (var movie in movies)
-            {
-                if (movie.genre == Genre.action)
-                {
-                    yield return movie;
-                }
-            }
+            return select_movies(movie => movie.genre == Genre.action);
         }
 
         public IEnumerable<Movie> sort_all_movies_by_date_published_descending()
