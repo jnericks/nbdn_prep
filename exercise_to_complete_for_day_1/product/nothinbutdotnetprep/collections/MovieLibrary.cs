@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace nothinbutdotnetprep.collections
@@ -34,7 +33,7 @@ namespace nothinbutdotnetprep.collections
 
         public IEnumerable<Movie> sort_all_movies_by_title_descending
         {
-            get { return get_sorted(new all_movies_by_title_descending()); }
+            get { return get_sorted(new AllMoviesByTitleDescending()); }
         }
 
         public IEnumerable<Movie> all_movies_published_by_pixar()
@@ -47,9 +46,9 @@ namespace nothinbutdotnetprep.collections
 
         public IEnumerable<Movie> all_movies_published_by_pixar_or_disney()
         {
-            foreach (Movie movie in movies)
+            foreach (var movie in movies)
             {
-                if (movie.production_studio ==ProductionStudio.Pixar ||
+                if (movie.production_studio == ProductionStudio.Pixar ||
                     movie.production_studio == ProductionStudio.Disney)
                 {
                     yield return movie;
@@ -77,7 +76,7 @@ namespace nothinbutdotnetprep.collections
 
         public IEnumerable<Movie> all_movies_published_between_years(int starting_year, int ending_year)
         {
-            foreach (Movie movie in movies)
+            foreach (var movie in movies)
             {
                 if (movie.date_published.Year >= starting_year &&
                     movie.date_published.Year <= ending_year)
@@ -89,7 +88,7 @@ namespace nothinbutdotnetprep.collections
 
         public IEnumerable<Movie> all_movies_published_after(int year)
         {
-            foreach (Movie movie in movies)
+            foreach (var movie in movies)
             {
                 if (movie.date_published.Year > year) yield return movie;
             }
@@ -97,17 +96,17 @@ namespace nothinbutdotnetprep.collections
 
         public IEnumerable<Movie> sort_all_movies_by_title_ascending
         {
-            get { return get_sorted(new all_movies_by_title_ascending()); }
+            get { return get_sorted(new AllMoviesByTitleAscending()); }
         }
 
         public IEnumerable<Movie> sort_all_movies_by_movie_studio_and_year_published()
         {
-            return get_sorted(new all_movies_by_movie_studio_and_year_published());
+            return get_sorted(new AllMoviesByMovieStudioAndYearPublished());
         }
 
-        private IEnumerable<Movie> get_sorted(IComparer<Movie> comparer)
+        IEnumerable<Movie> get_sorted(IComparer<Movie> comparer)
         {
-            var sorted = (List<Movie>)movies;
+            var sorted = (List<Movie>) movies;
             sorted.Sort(comparer);
 
             foreach (var movie in sorted)
@@ -118,7 +117,7 @@ namespace nothinbutdotnetprep.collections
 
         public IEnumerable<Movie> all_kid_movies()
         {
-            foreach (Movie movie in movies)
+            foreach (var movie in movies)
             {
                 if (movie.genre == Genre.kids)
                 {
@@ -129,7 +128,7 @@ namespace nothinbutdotnetprep.collections
 
         public IEnumerable<Movie> all_action_movies()
         {
-            foreach (Movie movie in movies)
+            foreach (var movie in movies)
             {
                 if (movie.genre == Genre.action)
                 {
@@ -149,7 +148,7 @@ namespace nothinbutdotnetprep.collections
         }
     }
 
-    public class all_movies_by_title_ascending : IComparer<Movie>
+    public class AllMoviesByTitleAscending : IComparer<Movie>
     {
         public int Compare(Movie x, Movie y)
         {
@@ -157,7 +156,7 @@ namespace nothinbutdotnetprep.collections
         }
     }
 
-    public class all_movies_by_title_descending : IComparer<Movie>
+    public class AllMoviesByTitleDescending : IComparer<Movie>
     {
         public int Compare(Movie x, Movie y)
         {
@@ -165,32 +164,32 @@ namespace nothinbutdotnetprep.collections
         }
     }
 
-    public class all_movies_by_movie_studio_and_year_published : IComparer<Movie>
+    public class AllMoviesByMovieStudioAndYearPublished : IComparer<Movie>
     {
-        private static Dictionary<ProductionStudio, int> rankings
+        static Dictionary<ProductionStudio, int> rankings
             = new Dictionary<ProductionStudio, int>
-              {
-                  {ProductionStudio.MGM, 1},
-                  {ProductionStudio.Pixar, 2},
-                  {ProductionStudio.Dreamworks, 3},
-                  {ProductionStudio.Universal, 4},
-                  {ProductionStudio.Disney, 5},
-                  {ProductionStudio.Paramount, 6},
-              };
+            {
+                {ProductionStudio.MGM, 1},
+                {ProductionStudio.Pixar, 2},
+                {ProductionStudio.Dreamworks, 3},
+                {ProductionStudio.Universal, 4},
+                {ProductionStudio.Disney, 5},
+                {ProductionStudio.Paramount, 6},
+            };
 
         public int Compare(Movie x, Movie y)
         {
-            var rankX = (GetRank(x) * 10000) + x.date_published.Year;
-            var rankY = (GetRank(y) * 10000) + y.date_published.Year;
+            var rankX = (GetRank(x)*10000) + x.date_published.Year;
+            var rankY = (GetRank(y)*10000) + y.date_published.Year;
 
             return rankX.CompareTo(rankY);
         }
 
-        private int GetRank(Movie x)
+        int GetRank(Movie x)
         {
             return rankings.ContainsKey(x.production_studio)
-                       ? rankings[x.production_studio]
-                       : 1000;
+                ? rankings[x.production_studio]
+                : 1000;
         }
     }
 
