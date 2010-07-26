@@ -73,7 +73,8 @@ namespace nothinbutdotnetprep.specs
             Because b = () =>
                 number_of_movies = sut.all_movies().Count();
 
-            It should_return_the_number_of_all_movies_in_the_library = () => { number_of_movies.ShouldEqual(2); };
+            It should_return_the_number_of_all_movies_in_the_library = () =>
+                number_of_movies.ShouldEqual(2);
         }
 
         [Subject(typeof(MovieLibrary))]
@@ -93,8 +94,8 @@ namespace nothinbutdotnetprep.specs
 
             Because b = () => { all_movies = sut.all_movies(); };
 
-            It should_receive_a_set_containing_each_movie_in_the_library =
-                () => { all_movies.ShouldContainOnly(first_movie, second_movie); };
+            It should_receive_a_set_containing_each_movie_in_the_library = () =>  
+                    all_movies.ShouldContainOnly(first_movie, second_movie);
         }
 
         [Subject(typeof(MovieLibrary))]
