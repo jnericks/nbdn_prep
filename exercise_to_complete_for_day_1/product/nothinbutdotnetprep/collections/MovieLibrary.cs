@@ -34,7 +34,7 @@ namespace nothinbutdotnetprep.collections
 
         public IEnumerable<Movie> sort_all_movies_by_title_descending
         {
-            get { throw new NotImplementedException(); }
+            get { return get_sorted(new all_movies_by_title_descending()); }
         }
 
         public IEnumerable<Movie> all_movies_published_by_pixar()
@@ -97,12 +97,23 @@ namespace nothinbutdotnetprep.collections
 
         public IEnumerable<Movie> sort_all_movies_by_title_ascending
         {
-            get { throw new NotImplementedException(); }
+            get { return get_sorted(new all_movies_by_title_ascending()); }
         }
 
         public IEnumerable<Movie> sort_all_movies_by_movie_studio_and_year_published()
         {
-            throw new NotImplementedException();
+            return get_sorted(new all_movies_by_movie_studio_and_year_published());
+        }
+
+        private IEnumerable<Movie> get_sorted(IComparer<Movie> comparer)
+        {
+            var sorted = (List<Movie>)movies;
+            sorted.Sort(comparer);
+
+            foreach (var movie in sorted)
+            {
+                yield return movie;
+            }
         }
 
         public IEnumerable<Movie> all_kid_movies()
@@ -129,12 +140,73 @@ namespace nothinbutdotnetprep.collections
 
         public IEnumerable<Movie> sort_all_movies_by_date_published_descending()
         {
-            throw new NotImplementedException();
+            return get_sorted(new all_movies_by_date_published_descending());
         }
 
         public IEnumerable<Movie> sort_all_movies_by_date_published_ascending()
         {
-            throw new NotImplementedException();
+            return get_sorted(new all_movies_by_date_published_ascending());
+        }
+    }
+
+    public class all_movies_by_title_ascending : IComparer<Movie>
+    {
+        public int Compare(Movie x, Movie y)
+        {
+            return x.title.CompareTo(y.title);
+        }
+    }
+
+    public class all_movies_by_title_descending : IComparer<Movie>
+    {
+        public int Compare(Movie x, Movie y)
+        {
+            return y.title.CompareTo(x.title);
+        }
+    }
+
+    public class all_movies_by_movie_studio_and_year_published : IComparer<Movie>
+    {
+        private static Dictionary<ProductionStudio, int> rankings
+            = new Dictionary<ProductionStudio, int>
+              {
+                  {ProductionStudio.MGM, 1},
+                  {ProductionStudio.Pixar, 2},
+                  {ProductionStudio.Dreamworks, 3},
+                  {ProductionStudio.Universal, 4},
+                  {ProductionStudio.Disney, 5},
+                  {ProductionStudio.Paramount, 6},
+              };
+
+        public int Compare(Movie x, Movie y)
+        {
+            var rankX = (GetRank(x) * 10000) + x.date_published.Year;
+            var rankY = (GetRank(y) * 10000) + y.date_published.Year;
+
+            return rankX.CompareTo(rankY);
+        }
+
+        private int GetRank(Movie x)
+        {
+            return rankings.ContainsKey(x.production_studio)
+                       ? rankings[x.production_studio]
+                       : 1000;
+        }
+    }
+
+    public class all_movies_by_date_published_ascending : IComparer<Movie>
+    {
+        public int Compare(Movie x, Movie y)
+        {
+            return x.date_published.CompareTo(y.date_published);
+        }
+    }
+
+    public class all_movies_by_date_published_descending : IComparer<Movie>
+    {
+        public int Compare(Movie x, Movie y)
+        {
+            return y.date_published.CompareTo(x.date_published);
         }
     }
 }

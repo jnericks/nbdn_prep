@@ -27,5 +27,10 @@ namespace nothinbutdotnetprep.collections
         {
             return Equals(obj as Movie);
         }
+
+        public override string ToString()
+        {
+            return title;
+        }
     }
 }
