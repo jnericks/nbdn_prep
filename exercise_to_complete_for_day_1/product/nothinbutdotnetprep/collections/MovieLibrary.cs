@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace nothinbutdotnetprep.collections
@@ -36,43 +37,6 @@ namespace nothinbutdotnetprep.collections
             get { return get_sorted(new AllMoviesByTitleDescending()); }
         }
 
-        public IEnumerable<Movie> all_movies_published_by_pixar()
-        {
-            return select_movies(movie => movie.production_studio == ProductionStudio.Pixar);
-        }
-
-        public IEnumerable<Movie> all_movies_published_by_pixar_or_disney()
-        {
-            return select_movies(movie => movie.production_studio == ProductionStudio.Pixar
-                || movie.production_studio == ProductionStudio.Disney);
-        }
-
-        delegate bool MovieCriteria(Movie movie);
-
-        IEnumerable<Movie> select_movies(MovieCriteria criteria)
-        {
-            foreach (var movie in movies)
-            {
-                if (criteria(movie)) yield return movie;
-            }
-        }
-
-        public IEnumerable<Movie> all_movies_not_published_by_pixar()
-        {
-            return select_movies(movie => movie.production_studio != ProductionStudio.Pixar);
-        }
-
-        public IEnumerable<Movie> all_movies_published_between_years(int starting_year, int ending_year)
-        {
-            return select_movies(movie => movie.date_published.Year >= starting_year
-                && movie.date_published.Year <= ending_year);
-        }
-
-        public IEnumerable<Movie> all_movies_published_after(int year)
-        {
-            return select_movies(movie => movie.date_published.Year > year);
-        }
-
         public IEnumerable<Movie> sort_all_movies_by_title_ascending
         {
             get { return get_sorted(new AllMoviesByTitleAscending()); }
@@ -92,16 +56,6 @@ namespace nothinbutdotnetprep.collections
             {
                 yield return movie;
             }
-        }
-
-        public IEnumerable<Movie> all_kid_movies()
-        {
-            return select_movies(movie => movie.genre == Genre.kids);
-        }
-
-        public IEnumerable<Movie> all_action_movies()
-        {
-            return select_movies(movie => movie.genre == Genre.action);
         }
 
         public IEnumerable<Movie> sort_all_movies_by_date_published_descending()

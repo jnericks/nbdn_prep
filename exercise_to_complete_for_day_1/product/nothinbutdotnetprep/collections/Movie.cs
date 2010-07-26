@@ -32,5 +32,19 @@ namespace nothinbutdotnetprep.collections
         {
             return title;
         }
+
+        public static CriteriaFor<Movie> is_published_by_pixar_or_disney
+        {
+            get
+            {
+                return item => is_published_by(ProductionStudio.Pixar)(item) ||
+                    is_published_by(ProductionStudio.Disney)(item);
+            }
+        }
+
+        public static CriteriaFor<Movie> is_published_by(ProductionStudio studio)
+        {
+            return item => item.production_studio == studio;
+        }
     }
 }
