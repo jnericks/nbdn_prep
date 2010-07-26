@@ -12,5 +12,13 @@ namespace nothinbutdotnetprep.utility
                 if (criteria(item)) yield return item;
             } 
         }
+
+        public static IEnumerable<T> all_items_not_matching<T>(this IEnumerable<T> items, CriteriaFor<T> criteria)
+        {
+            foreach (T item in items)
+            {
+                if (!criteria(item)) yield return item;
+            }
+        }
     }
 }

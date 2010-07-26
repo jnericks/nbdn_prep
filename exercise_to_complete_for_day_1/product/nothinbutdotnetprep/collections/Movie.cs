@@ -46,5 +46,20 @@ namespace nothinbutdotnetprep.collections
         {
             return item => item.production_studio == studio;
         }
+
+        public static CriteriaFor<Movie> is_published_after_year(int year)
+        {
+            return item => item.date_published.Year > year;
+        }
+
+        public static CriteriaFor<Movie> is_published_within_year_range(int startYear, int endYear)
+        {
+            return item => item.date_published.Year >= startYear && item.date_published.Year <= endYear;
+        }
+
+        public static CriteriaFor<Movie> is_of_genre(Genre genre)
+        {
+            return item => item.genre == genre;
+        }
     }
 }
