@@ -86,6 +86,9 @@
     <Compile Include="utility\ranges\ExclusiveRangeWithNoUpperBound.cs" />
     <Compile Include="utility\ranges\InclusiveRange.cs" />
     <Compile Include="utility\ranges\Range.cs" />
+    <Compile Include="utility\sorting\ChainedComparer.cs" />
+    <Compile Include="utility\sorting\ComparerExtensions.cs" />
+    <Compile Include="utility\sorting\ReverseComparer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
