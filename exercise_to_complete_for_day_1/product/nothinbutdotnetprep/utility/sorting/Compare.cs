@@ -14,7 +14,7 @@ namespace nothinbutdotnetprep.utility.sorting
         public static IComparer<ItemToSort> by_descending<PropertyType>(Func<ItemToSort, PropertyType> property_accessor)
             where PropertyType : IComparable<PropertyType>
         {
-            return new ReverseComparer<ItemToSort>(new ComparablePropertyComparer<ItemToSort,PropertyType>(property_accessor)); 
+            return new ReverseComparer<ItemToSort>(by_ascending(property_accessor)); 
         }
     }
 }
