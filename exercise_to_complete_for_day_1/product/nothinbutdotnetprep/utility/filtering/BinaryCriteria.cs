@@ -1,4 +1,4 @@
-﻿namespace nothinbutdotnetprep.utility
+﻿namespace nothinbutdotnetprep.utility.filtering
 {
     public abstract class BinaryCriteria<T> : Criteria<T>
     {

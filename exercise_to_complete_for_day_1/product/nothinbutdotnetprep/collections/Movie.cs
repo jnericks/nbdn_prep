@@ -1,5 +1,6 @@
 using System;
 using nothinbutdotnetprep.utility;
+using nothinbutdotnetprep.utility.filtering;
 
 namespace nothinbutdotnetprep.collections
 {
@@ -34,19 +35,20 @@ namespace nothinbutdotnetprep.collections
             return title;
         }
 
+        public void do_something()
+        {
+
+        }
+
         public static Criteria<Movie> is_published_by_pixar_or_disney
         {
             get
             {
-                return new IsPublishedBy(ProductionStudio.Pixar)
-                    .or(new IsPublishedBy(ProductionStudio.Disney));
+                return Where<Movie>.has_a(x => x.production_studio)
+                    .equal_to_any(ProductionStudio.Pixar, ProductionStudio.Disney);
             }
         }
 
-        public static Criteria<Movie> is_published_by(ProductionStudio studio)
-        {
-            return new IsPublishedBy(studio);
-        }
 
         public static Criteria<Movie> is_published_after_year(int year)
         {

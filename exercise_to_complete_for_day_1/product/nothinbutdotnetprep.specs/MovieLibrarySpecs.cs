@@ -7,6 +7,7 @@ using Machine.Specifications.DevelopWithPassion.Rhino;
 using nothinbutdotnetprep.collections;
 using nothinbutdotnetprep.tests.utility;
 using nothinbutdotnetprep.utility;
+using nothinbutdotnetprep.utility.filtering;
 
 /* The following set of Contexts (TestFixture) are in place to specify the functionality that you need to complete for the MovieLibrary class.
  * MovieLibrary is an aggregate root for the Movie class. it exposes the ability to search,sort, and iterate over all of the movies that it aggregates.
@@ -183,9 +184,14 @@ namespace nothinbutdotnetprep.specs
              * movies using different criteria. Feel free to change/remove explicit methods if you find a way to encompass searching
              * without the need for using explicit methods. For this exercise, no linq queries are allowed!!.*/
 
+            public static void say_hello()
+            {
+                Console.Out.WriteLine("Hello");
+            }
+
             It should_be_able_to_find_all_movies_published_by_pixar = () =>
             {
-                var criteria = Where<Movie>.has_a(x => x.production_studio)
+                var criteria = Where<Movie>.has_a(movie => movie.production_studio)
                     .equal_to(ProductionStudio.Pixar);
                 var results = sut.all_movies().all_items_matching(criteria);
 
@@ -205,7 +211,7 @@ namespace nothinbutdotnetprep.specs
             It should_be_able_to_find_all_movies_not_published_by_pixar = () =>
             {
                 var criteria = Where<Movie>.has_a(x => x.production_studio)
-                    .not_equal_to(ProductionStudio.Pixar);
+                    .not.equal_to(ProductionStudio.Pixar);
                 var results =
                     sut.all_movies().all_items_matching(criteria);
 

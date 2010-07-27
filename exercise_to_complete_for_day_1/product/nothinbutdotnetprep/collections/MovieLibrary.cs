@@ -14,10 +14,7 @@ namespace nothinbutdotnetprep.collections
 
         public IEnumerable<Movie> all_movies()
         {
-            foreach (var movie in movies)
-            {
-                yield return movie;
-            }
+            return new LazyEnumerable<Movie>(movies);
         }
 
         public void add(Movie movie)
