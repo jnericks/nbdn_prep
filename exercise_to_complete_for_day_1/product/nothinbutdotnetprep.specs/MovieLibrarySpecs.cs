@@ -261,11 +261,8 @@ namespace nothinbutdotnetprep.specs
 
             It should_be_able_to_sort_all_movies_by_title_descending = () =>
             {
-                var comparer = Compare<Movie>.by_descending(x => x.title);
-
-//                var results = sut.all_movies().sort_using(comparer);
-                var results = sut.all_movies().order_by(x => x.title)
-                    .then_by(x => x.rating)
+                var results = sut.all_movies().order_by_descending(x => x.title)
+                    .then_by(x => x.rating);
 
                 results.ShouldContainOnlyInOrder(theres_something_about_mary, the_ring, shrek,
                                                  pirates_of_the_carribean, indiana_jones_and_the_temple_of_doom,
@@ -274,9 +271,7 @@ namespace nothinbutdotnetprep.specs
 
             It should_be_able_to_sort_all_movies_by_title_ascending = () =>
             {
-                var comparer = Compare<Movie>.by(x => x.title);
-
-               var results = sut.all_movies().sort_using(comparer);
+                var results = sut.all_movies().order_by(x => x.title);
 
                 results.ShouldContainOnlyInOrder(a_bugs_life, cars, indiana_jones_and_the_temple_of_doom,
                                                  pirates_of_the_carribean, shrek, the_ring,
@@ -285,9 +280,7 @@ namespace nothinbutdotnetprep.specs
 
             It should_be_able_to_sort_all_movies_by_date_published_descending = () =>
             {
-                var comparer = Compare<Movie>.by_descending(x => x.date_published);
-
-                var results = sut.all_movies().sort_using(comparer);
+                var results = sut.all_movies().order_by_descending(x => x.date_published);
                 
                 results.ShouldContainOnlyInOrder(theres_something_about_mary, shrek, the_ring, cars,
                                                  pirates_of_the_carribean, a_bugs_life,
@@ -296,9 +289,7 @@ namespace nothinbutdotnetprep.specs
 
             It should_be_able_to_sort_all_movies_by_date_published_ascending = () =>
             {
-                var comparer = Compare<Movie>.by(x => x.date_published);
-
-                var results = sut.all_movies().sort_using(comparer);
+                var results = sut.all_movies().order_by(x => x.date_published);
 
                 results.ShouldContainOnlyInOrder(indiana_jones_and_the_temple_of_doom, a_bugs_life,
                                                  pirates_of_the_carribean, cars, the_ring, shrek,
@@ -321,7 +312,7 @@ namespace nothinbutdotnetprep.specs
                  * year published. For this test you cannot add any extra properties/fields to either the ProductionStudio or
                  * Movie classes.*/
 
-                var comparer = Compare<Movie>.by(x => x.production_studio,
+                var results = sut.all_movies().order_by(x => x.production_studio,
                                                  ProductionStudio.MGM,
                                                  ProductionStudio.Pixar,
                                                  ProductionStudio.Dreamworks,
@@ -330,8 +321,6 @@ namespace nothinbutdotnetprep.specs
                                                  ProductionStudio.Paramount)
                     .then_by(x => x.date_published.Year)
                     .then_by(x => x.rating);
-
-                var results = sut.all_movies().sort_using(comparer);
 
                 results.ShouldContainOnlyInOrder(the_ring, theres_something_about_mary, a_bugs_life, cars, shrek,
                                                  indiana_jones_and_the_temple_of_doom,
