@@ -53,7 +53,7 @@ namespace nothinbutdotnetprep.specs
 {
     public class MovieLibrarySpecs
     {
-        public abstract class movie_library_concern : Observes<MovieLibrary>
+        public abstract class concern : Observes<MovieLibrary>
         {
             protected static IList<Movie> movie_collection;
 
@@ -65,7 +65,7 @@ namespace nothinbutdotnetprep.specs
         } ;
 
         [Subject(typeof(MovieLibrary))]
-        public class when_counting_the_number_of_movies : movie_library_concern
+        public class when_counting_the_number_of_movies : concern
         {
             static int number_of_movies;
 
@@ -80,7 +80,7 @@ namespace nothinbutdotnetprep.specs
         }
 
         [Subject(typeof(MovieLibrary))]
-        public class when_asked_for_all_of_the_movies : movie_library_concern
+        public class when_asked_for_all_of_the_movies : concern
         {
             static Movie first_movie;
             static Movie second_movie;
@@ -101,8 +101,8 @@ namespace nothinbutdotnetprep.specs
         }
 
         [Subject(typeof(MovieLibrary))]
-        public class when_trying_to_change_the_set_of_movies_returned_by_the_movie_library_to_a_mutable_type :
-            movie_library_concern
+        public class WhenTryingToChangeTheSetOfMoviesReturnedByTheToAMutableType :
+            concern
         {
             static Movie first_movie;
             static Movie second_movie;
@@ -122,7 +122,7 @@ namespace nothinbutdotnetprep.specs
         }
 
         [Subject(typeof(MovieLibrary))]
-        public class when_adding_a_movie_to_the_library : movie_library_concern
+        public class when_adding_a_movie_to_the_library : concern
         {
             static Movie movie;
 
@@ -139,7 +139,7 @@ namespace nothinbutdotnetprep.specs
         }
 
         [Subject(typeof(MovieLibrary))]
-        public class when_adding_an_existing_movie_in_the_collection_again : movie_library_concern
+        public class when_adding_an_existing_movie_in_the_collection_again : concern
         {
             static Movie movie;
 
@@ -157,7 +157,7 @@ namespace nothinbutdotnetprep.specs
         }
 
         [Subject(typeof(MovieLibrary))]
-        public class when_adding_two_different_copies_of_the_same_movie : movie_library_concern
+        public class when_adding_two_different_copies_of_the_same_movie : concern
         {
             static Movie another_copy_of_speed_racer;
             static Movie speed_racer;
@@ -184,10 +184,6 @@ namespace nothinbutdotnetprep.specs
              * movies using different criteria. Feel free to change/remove explicit methods if you find a way to encompass searching
              * without the need for using explicit methods. For this exercise, no linq queries are allowed!!.*/
 
-            public static void say_hello()
-            {
-                Console.Out.WriteLine("Hello");
-            }
 
             It should_be_able_to_find_all_movies_published_by_pixar = () =>
             {
@@ -223,7 +219,7 @@ namespace nothinbutdotnetprep.specs
             {
                 var criteria = Where<Movie>.has_an(x => x.date_published.Year)
                     .greater_than(2004);
-                var results = sut.all_movies().all_items_matching(Movie.is_published_after_year(2004));
+                var results = sut.all_movies().all_items_matching(criteria);
 
                 results.ShouldContainOnly(the_ring, shrek, theres_something_about_mary);
             };
@@ -265,7 +261,9 @@ namespace nothinbutdotnetprep.specs
 
             It should_be_able_to_sort_all_movies_by_title_descending = () =>
             {
-                var results = sut.sort_all_movies_by_title_descending;
+                var comparer = Compare<Movie>.by_descending(x => x.title);
+                var results = sut.all_movies().sort_using(comparer);
+
 
                 results.ShouldContainOnlyInOrder(theres_something_about_mary, the_ring, shrek,
                                                  pirates_of_the_carribean, indiana_jones_and_the_temple_of_doom,
@@ -320,7 +318,7 @@ namespace nothinbutdotnetprep.specs
             };
         }
 
-        public abstract class concern_for_searching_and_sorting : movie_library_concern
+        public abstract class concern_for_searching_and_sorting : concern
         {
             protected static Movie a_bugs_life;
             protected static Movie cars;
