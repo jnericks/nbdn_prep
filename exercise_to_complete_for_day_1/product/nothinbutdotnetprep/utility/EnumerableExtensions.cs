@@ -8,24 +8,27 @@ namespace nothinbutdotnetprep.utility
 {
     public static class EnumerableExtensions
     {
-        public static ComparerBuilder<ItemToCompare> order_by<ItemToCompare, PropertyType>(this IEnumerable<ItemToCompare> items, Func<ItemToCompare, PropertyType> property_accessor) 
+        public static SortingEnumerable<ItemToCompare> order_by<ItemToCompare, PropertyType>(this IEnumerable<ItemToCompare> items, Func<ItemToCompare, PropertyType> property_accessor) 
             where PropertyType : IComparable<PropertyType>
         {
-            return new ComparerBuilder<ItemToCompare>(
-                new ComparablePropertyComparer<ItemToCompare, PropertyType>(property_accessor), items);
+            return new SortingEnumerable<ItemToCompare>(
+                new ComparerBuilder<ItemToCompare>(
+                    new PropertyComparer<ItemToCompare, PropertyType>(new ComparableComparer<PropertyType>(),property_accessor)),items);
+
+
         }
 
-        public static ComparerBuilder<ItemToCompare> order_by<ItemToCompare, PropertyType>(this IEnumerable<ItemToCompare> items, Func<ItemToCompare, PropertyType> property_accessor, params PropertyType[] rank_order)
+        public static SortingEnumerable<ItemToCompare> order_by<ItemToCompare, PropertyType>(this IEnumerable<ItemToCompare> items, Func<ItemToCompare, PropertyType> property_accessor, params PropertyType[] rank_order)
         {
-            return new ComparerBuilder<ItemToCompare>(
-                new FixedPropertyComparer<ItemToCompare, PropertyType>(property_accessor, rank_order), items);
+            return new SortingEnumerable<ItemToCompare>(new ComparerBuilder<ItemToCompare>(
+                new FixedPropertyComparer<ItemToCompare, PropertyType>(property_accessor, rank_order)), items);
         }
 
-        public static ComparerBuilder<ItemToCompare> order_by_descending<ItemToCompare, PropertyType>(this IEnumerable<ItemToCompare> items, Func<ItemToCompare, PropertyType> property_accessor) where PropertyType : IComparable<PropertyType>
+        public static SortingEnumerable<ItemToCompare> order_by_descending<ItemToCompare, PropertyType>(this IEnumerable<ItemToCompare> items, Func<ItemToCompare, PropertyType> property_accessor) where PropertyType : IComparable<PropertyType>
         {
-            return new ComparerBuilder<ItemToCompare>(
+            return new SortingEnumerable<ItemToCompare>(new ComparerBuilder<ItemToCompare>(
                 new ReverseComparer<ItemToCompare>(
-                    new ComparablePropertyComparer<ItemToCompare, PropertyType>(property_accessor)), items);
+                    new ComparableComparer<ItemToCompare, PropertyType>(property_accessor))), items);
         }
 
         public static IEnumerable<T> all_items_matching<T>(this IEnumerable<T> items,CriteriaFor<T> criteria)

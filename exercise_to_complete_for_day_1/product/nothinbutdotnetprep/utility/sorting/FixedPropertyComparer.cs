@@ -1,35 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace nothinbutdotnetprep.utility.sorting
 {
-    public class FixedPropertyComparer<ItemToCompare, PropertyType> : IComparer<ItemToCompare>
+    public class FixedPropertyComparer<T> : IComparer<T>
     {
-        Func<ItemToCompare, PropertyType> property_accessor;
-        IList<PropertyType> rankings;
+        IList<T> rankings;
 
-        public FixedPropertyComparer(Func<ItemToCompare, PropertyType> property_accessor, 
-                                    IEnumerable<PropertyType> rank_order)
+        public FixedPropertyComparer(params T[] rankings)
         {
-            this.property_accessor = property_accessor;
-            rankings = new List<PropertyType>(rank_order);
+            this.rankings = new List<T>(rankings);
         }
 
-        public ChainedComparer<ItemToCompare> then_by<PropertyType2>(Func<ItemToCompare, PropertyType2> property_accessor2)
-            where PropertyType2 : IComparable<PropertyType2>
+        public int Compare(T x, T y)
         {
-            var to_chain = new ComparablePropertyComparer<ItemToCompare, PropertyType2>(property_accessor2);
-            return new ChainedComparer<ItemToCompare>(this, to_chain);
-        }
-
-        public int Compare(ItemToCompare x, ItemToCompare y)
-        {
-            return get_ranking_of(x).CompareTo(get_ranking_of(y));
-        }
-
-        int get_ranking_of(ItemToCompare item_to_compare)
-        {
-            return rankings.IndexOf(property_accessor(item_to_compare));
+            return rankings.IndexOf(x).CompareTo(rankings.IndexOf(y));
         }
     }
 }
