@@ -272,7 +272,7 @@ namespace nothinbutdotnetprep.specs
 
             It should_be_able_to_sort_all_movies_by_title_ascending = () =>
             {
-                var comparer = Compare<Movie>.by_ascending(x => x.title);
+                var comparer = Compare<Movie>.by(x => x.title);
 
                var results = sut.all_movies().sort_using(comparer);
 
@@ -294,7 +294,7 @@ namespace nothinbutdotnetprep.specs
 
             It should_be_able_to_sort_all_movies_by_date_published_ascending = () =>
             {
-                var comparer = Compare<Movie>.by_ascending(x => x.date_published);
+                var comparer = Compare<Movie>.by(x => x.date_published);
 
                 var results = sut.all_movies().sort_using(comparer);
 
@@ -319,14 +319,15 @@ namespace nothinbutdotnetprep.specs
                  * year published. For this test you cannot add any extra properties/fields to either the ProductionStudio or
                  * Movie classes.*/
 
-                var comparer = Compare<Movie>.by_ascending(x => x.production_studio,
-                    ProductionStudio.MGM,
-                    ProductionStudio.Pixar,
-                    ProductionStudio.Dreamworks,
-                    ProductionStudio.Universal,
-                    ProductionStudio.Disney,
-                    ProductionStudio.Paramount)
-                    .then_by(x => x.date_published.Year);
+                var comparer = Compare<Movie>.by(x => x.production_studio,
+                                                 ProductionStudio.MGM,
+                                                 ProductionStudio.Pixar,
+                                                 ProductionStudio.Dreamworks,
+                                                 ProductionStudio.Universal,
+                                                 ProductionStudio.Disney,
+                                                 ProductionStudio.Paramount)
+                    .then_by(x => x.date_published.Year)
+                    .then_by(x => x.rating)
 
                 var results = sut.all_movies().sort_using(comparer);
 
