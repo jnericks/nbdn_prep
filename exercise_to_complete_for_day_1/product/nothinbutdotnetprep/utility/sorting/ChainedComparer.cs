@@ -11,7 +11,7 @@ namespace nothinbutdotnetprep.utility.sorting
         {
             this.first = first;
             this.second = second;
-        }
+       }
 
         public int Compare(T x, T y)
         {

@@ -23,5 +23,12 @@ namespace nothinbutdotnetprep.utility
                 if (!criteria(item)) yield return item;
             }
         }
+
+        public static IEnumerable<T> sort_by<T>(this IEnumerable<T> items, IComparer<T> comparer)
+        {
+            var list = new List<T>(items);
+            list.Sort(comparer);
+            foreach (var item in list) yield return item;
+        }
     }
 }

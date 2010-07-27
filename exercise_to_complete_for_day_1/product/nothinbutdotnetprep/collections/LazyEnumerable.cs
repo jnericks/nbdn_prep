@@ -21,10 +21,8 @@ namespace nothinbutdotnetprep.collections
         public IEnumerator<T> GetEnumerator()
         {
             var results = new List<T>();
-            Console.Out.WriteLine("I am about to iterate over all of the items");
             foreach (var item in items)
             {
-                Console.Out.WriteLine("I am returning the item");
                 results.Add(item);
             }
             return results.GetEnumerator();
