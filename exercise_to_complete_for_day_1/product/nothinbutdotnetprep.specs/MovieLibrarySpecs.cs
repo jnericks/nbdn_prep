@@ -185,11 +185,6 @@ namespace nothinbutdotnetprep.specs
              * movies using different criteria. Feel free to change/remove explicit methods if you find a way to encompass searching
              * without the need for using explicit methods. For this exercise, no linq queries are allowed!!.*/
 
-            public static void say_hello()
-            {
-                Console.Out.WriteLine("Hello");
-            }
-
             It should_be_able_to_find_all_movies_published_by_pixar = () =>
             {
                 var criteria = Where<Movie>.has_a(movie => movie.production_studio)
@@ -224,7 +219,8 @@ namespace nothinbutdotnetprep.specs
             {
                 var criteria = Where<Movie>.has_an(x => x.date_published.Year)
                     .greater_than(2004);
-                var results = sut.all_movies().all_items_matching(Movie.is_published_after_year(2004));
+
+                var results = sut.all_movies().all_items_matching(criteria);
 
                 results.ShouldContainOnly(the_ring, shrek, theres_something_about_mary);
             };
@@ -266,9 +262,9 @@ namespace nothinbutdotnetprep.specs
 
             It should_be_able_to_sort_all_movies_by_title_descending = () =>
             {
-                var compare = Compare<Movie>.by_descending(x => x.title);
+                var comparer = Compare<Movie>.by_descending(x => x.title);
 
-                var results = sut.all_movies().sort_by(compare);
+                var results = sut.all_movies().sort_using(comparer);
 
                 results.ShouldContainOnlyInOrder(theres_something_about_mary, the_ring, shrek,
                                                  pirates_of_the_carribean, indiana_jones_and_the_temple_of_doom,
@@ -277,9 +273,9 @@ namespace nothinbutdotnetprep.specs
 
             It should_be_able_to_sort_all_movies_by_title_ascending = () =>
             {
-                var compare = Compare<Movie>.by(x => x.title);
+                var comparer = Compare<Movie>.by(x => x.title);
 
-                var results = sut.all_movies().sort_by(compare);
+                var results = sut.all_movies().sort_using(comparer);
 
                 results.ShouldContainOnlyInOrder(a_bugs_life, cars, indiana_jones_and_the_temple_of_doom,
                                                  pirates_of_the_carribean, shrek, the_ring,
@@ -290,7 +286,7 @@ namespace nothinbutdotnetprep.specs
             {
                 var comparer = Compare<Movie>.by_descending(x => x.date_published);
 
-                var results = sut.all_movies().sort_by(comparer);
+                var results = sut.all_movies().sort_using(comparer);
                 
                 results.ShouldContainOnlyInOrder(theres_something_about_mary, shrek, the_ring, cars,
                                                  pirates_of_the_carribean, a_bugs_life,
@@ -301,7 +297,7 @@ namespace nothinbutdotnetprep.specs
             {
                 var comparer = Compare<Movie>.by(x => x.date_published);
 
-                var results = sut.all_movies().sort_by(comparer);
+                var results = sut.all_movies().sort_using(comparer);
 
                 results.ShouldContainOnlyInOrder(indiana_jones_and_the_temple_of_doom, a_bugs_life,
                                                  pirates_of_the_carribean, cars, the_ring, shrek,
@@ -331,7 +327,7 @@ namespace nothinbutdotnetprep.specs
                     ProductionStudio.Disney,
                     ProductionStudio.Paramount).then_by(x => x.date_published.Year);
 
-                var results = sut.all_movies().sort_by(criteria);
+                var results = sut.all_movies().sort_using(criteria);
 
                 results.ShouldContainOnlyInOrder(the_ring, theres_something_about_mary, a_bugs_life, cars, shrek,
                                                  indiana_jones_and_the_temple_of_doom,

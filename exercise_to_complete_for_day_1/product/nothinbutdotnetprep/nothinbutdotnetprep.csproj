@@ -66,7 +66,6 @@
     <Compile Include="collections\MovieLibrary.cs" />
     <Compile Include="collections\ProductionStudio.cs" />
     <Compile Include="utility\filtering\AndCriteria.cs" />
-    <Compile Include="utility\filtering\AnonymousCriteria.cs" />
     <Compile Include="utility\filtering\BinaryCriteria.cs" />
     <Compile Include="utility\filtering\ComparableCriteriaFactory.cs" />
     <Compile Include="utility\filtering\Criteria.cs" />
@@ -90,6 +89,7 @@
     <Compile Include="utility\sorting\Compare.cs" />
     <Compile Include="utility\sorting\CompareFactory.cs" />
     <Compile Include="utility\sorting\ComparerExtensions.cs" />
+    <Compile Include="utility\sorting\RankedCompareFactory.cs" />
     <Compile Include="utility\sorting\ReverseComparer.cs" />
   </ItemGroup>
   <ItemGroup>
