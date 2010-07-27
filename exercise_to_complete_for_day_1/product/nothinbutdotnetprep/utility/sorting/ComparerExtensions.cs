@@ -15,7 +15,7 @@ namespace nothinbutdotnetprep.utility.sorting
             PropertyType> property_accessor)
             where PropertyType : IComparable<PropertyType>
         {
-            return first.followed_by(new PropertyComparer<ItemToCompare, PropertyType>(property_accessor));
+            return first.followed_by(new ComparablePropertyComparer<ItemToCompare, PropertyType>(property_accessor));
         }
     }
 }

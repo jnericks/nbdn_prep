@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace nothinbutdotnetprep.utility.sorting
@@ -9,7 +9,7 @@ namespace nothinbutdotnetprep.utility.sorting
             Func<ItemToCompare, PropertyType> property_accessor)
             where PropertyType : IComparable<PropertyType>
         {
-            return new PropertyComparer<ItemToCompare, PropertyType>(property_accessor);
+            return new ComparablePropertyComparer<ItemToCompare, PropertyType>(property_accessor);
         }
 
         public static IComparer<ItemToCompare> by<PropertyType>(
