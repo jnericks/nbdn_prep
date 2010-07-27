@@ -23,6 +23,11 @@ namespace nothinbutdotnetprep.collections
             return this.title == other.title;
         }
 
+        public override int GetHashCode()
+        {
+            return title.GetHashCode();
+        }
+
         public override bool Equals(object obj)
         {
             return Equals(obj as Movie);
