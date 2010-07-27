@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace nothinbutdotnetprep.utility.sorting
 {
-    public class RankedCompareFactory<ItemToCompare, PropertyType> : IComparer<ItemToCompare>
+    public class RankedPropertyComparer<ItemToCompare, PropertyType> : IComparer<ItemToCompare>
     {
         Func<ItemToCompare, PropertyType> property_accessor;
         IDictionary<PropertyType, int> rankings;
 
-        public RankedCompareFactory(Func<ItemToCompare, PropertyType> property_accessor, 
+        public RankedPropertyComparer(Func<ItemToCompare, PropertyType> property_accessor, 
                                     IEnumerable<PropertyType> rank_order)
         {
             this.property_accessor = property_accessor;

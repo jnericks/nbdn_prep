@@ -9,13 +9,13 @@ namespace nothinbutdotnetprep.utility.sorting
             Func<ItemToCompare, PropertyType> property_accessor)
             where PropertyType : IComparable<PropertyType>
         {
-            return new CompareFactory<ItemToCompare, PropertyType>(property_accessor);
+            return new PropertyComparer<ItemToCompare, PropertyType>(property_accessor);
         }
 
         public static IComparer<ItemToCompare> by<PropertyType>(
             Func<ItemToCompare, PropertyType> property_accessor, params PropertyType[] rank_order)
         {
-            return new RankedCompareFactory<ItemToCompare, PropertyType>(property_accessor, rank_order);
+            return new RankedPropertyComparer<ItemToCompare, PropertyType>(property_accessor, rank_order);
         }
 
         public static IComparer<ItemToCompare> by_descending<PropertyType>(

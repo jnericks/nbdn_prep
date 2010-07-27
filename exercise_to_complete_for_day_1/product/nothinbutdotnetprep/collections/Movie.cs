@@ -16,7 +16,7 @@ namespace nothinbutdotnetprep.collections
 
             return ReferenceEquals(this,other) || 
                 is_equal_to_non_null_instance_of(other);
-        }
+       } 
 
         bool is_equal_to_non_null_instance_of(Movie other)
         {

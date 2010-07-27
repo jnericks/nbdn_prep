@@ -87,9 +87,9 @@
     <Compile Include="utility\ranges\Range.cs" />
     <Compile Include="utility\sorting\ChainedComparer.cs" />
     <Compile Include="utility\sorting\Compare.cs" />
-    <Compile Include="utility\sorting\CompareFactory.cs" />
+    <Compile Include="utility\sorting\PropertyComparer.cs" />
     <Compile Include="utility\sorting\ComparerExtensions.cs" />
-    <Compile Include="utility\sorting\RankedCompareFactory.cs" />
+    <Compile Include="utility\sorting\RankedPropertyComparer.cs" />
     <Compile Include="utility\sorting\ReverseComparer.cs" />
   </ItemGroup>
   <ItemGroup>
