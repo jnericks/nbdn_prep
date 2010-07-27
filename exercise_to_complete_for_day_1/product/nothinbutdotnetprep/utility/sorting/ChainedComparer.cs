@@ -21,11 +21,5 @@ namespace nothinbutdotnetprep.utility.sorting
             return result;
         }
 
-        public ChainedComparer<ItemToCompare> then_by<PropertyType>(Func<ItemToCompare, PropertyType> property_accessor2)
-            where PropertyType : IComparable<PropertyType>
-        {
-            var to_chain = new ComparablePropertyComparer<ItemToCompare, PropertyType>(property_accessor2);
-            return new ChainedComparer<ItemToCompare>(this, to_chain);
-        }
     }
 }

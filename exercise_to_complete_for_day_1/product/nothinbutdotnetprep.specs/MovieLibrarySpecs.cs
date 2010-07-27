@@ -263,7 +263,9 @@ namespace nothinbutdotnetprep.specs
             {
                 var comparer = Compare<Movie>.by_descending(x => x.title);
 
-                var results = sut.all_movies().sort_using(comparer);
+//                var results = sut.all_movies().sort_using(comparer);
+                var results = sut.all_movies().order_by(x => x.title)
+                    .then_by(x => x.rating)
 
                 results.ShouldContainOnlyInOrder(theres_something_about_mary, the_ring, shrek,
                                                  pirates_of_the_carribean, indiana_jones_and_the_temple_of_doom,

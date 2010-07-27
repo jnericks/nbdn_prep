@@ -5,24 +5,28 @@ namespace nothinbutdotnetprep.utility.sorting
 {
     public class Compare<ItemToCompare>
     {
-        public static IComparer<ItemToCompare> by<PropertyType>(
+        public static ComparerBuilder<ItemToCompare> by<PropertyType>(
             Func<ItemToCompare, PropertyType> property_accessor)
             where PropertyType : IComparable<PropertyType>
         {
-            return new ComparablePropertyComparer<ItemToCompare, PropertyType>(property_accessor);
+            return
+                new ComparerBuilder<ItemToCompare>(
+                    new ComparablePropertyComparer<ItemToCompare, PropertyType>(property_accessor));
         }
 
-        public static FixedPropertyComparer<ItemToCompare, PropertyType> by<PropertyType>(
+        public static ComparerBuilder<ItemToCompare> by<PropertyType>(
             Func<ItemToCompare, PropertyType> property_accessor, params PropertyType[] rank_order)
         {
-            return new FixedPropertyComparer<ItemToCompare, PropertyType>(property_accessor, rank_order);
+            return new ComparerBuilder<ItemToCompare>(new FixedPropertyComparer<ItemToCompare, PropertyType>(property_accessor, rank_order));
         }
 
-        public static IComparer<ItemToCompare> by_descending<PropertyType>(
+        public static ComparerBuilder<ItemToCompare> by_descending<PropertyType>(
             Func<ItemToCompare, PropertyType> property_accessor)
             where PropertyType : IComparable<PropertyType>
         {
-            return new ReverseComparer<ItemToCompare>(by(property_accessor));
+            return new ComparerBuilder<ItemToCompare>(
+                new ReverseComparer<ItemToCompare>(
+                    new ComparablePropertyComparer<ItemToCompare, PropertyType>(property_accessor)));
         }
     }
 }
