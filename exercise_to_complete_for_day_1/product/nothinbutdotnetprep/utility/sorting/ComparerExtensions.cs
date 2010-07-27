@@ -9,13 +9,5 @@ namespace nothinbutdotnetprep.utility.sorting
         {
             return new ChainedComparer<T>(first, second);
         }
-
-        public static IComparer<ItemToCompare> then_by<ItemToCompare, PropertyType>(
-            this IComparer<ItemToCompare> first, Func<ItemToCompare, 
-            PropertyType> property_accessor)
-            where PropertyType : IComparable<PropertyType>
-        {
-            return first.followed_by(new ComparablePropertyComparer<ItemToCompare, PropertyType>(property_accessor));
-        }
     }
 }

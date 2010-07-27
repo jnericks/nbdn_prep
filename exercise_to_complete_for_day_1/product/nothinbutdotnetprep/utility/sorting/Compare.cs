@@ -12,7 +12,7 @@ namespace nothinbutdotnetprep.utility.sorting
             return new ComparablePropertyComparer<ItemToCompare, PropertyType>(property_accessor);
         }
 
-        public static IComparer<ItemToCompare> by<PropertyType>(
+        public static RankedPropertyComparer<ItemToCompare, PropertyType> by<PropertyType>(
             Func<ItemToCompare, PropertyType> property_accessor, params PropertyType[] rank_order)
         {
             return new RankedPropertyComparer<ItemToCompare, PropertyType>(property_accessor, rank_order);

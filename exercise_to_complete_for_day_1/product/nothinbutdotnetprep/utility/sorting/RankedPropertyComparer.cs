@@ -15,6 +15,13 @@ namespace nothinbutdotnetprep.utility.sorting
             initialize_rankings(rank_order);
         }
 
+        public IComparer<ItemToCompare> then_by<PropertyType2>(Func<ItemToCompare, PropertyType2> property_accessor2)
+            where PropertyType2 : IComparable<PropertyType2>
+        {
+            var to_chain = new ComparablePropertyComparer<ItemToCompare, PropertyType2>(property_accessor2);
+            return new ChainedComparer<ItemToCompare>(this, to_chain);
+        }
+
         private void initialize_rankings(IEnumerable<PropertyType> rank_order) 
         {
             rankings = new Dictionary<PropertyType, int>();

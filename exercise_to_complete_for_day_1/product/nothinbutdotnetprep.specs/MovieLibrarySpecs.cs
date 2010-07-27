@@ -324,7 +324,8 @@ namespace nothinbutdotnetprep.specs
                     ProductionStudio.Dreamworks,
                     ProductionStudio.Universal,
                     ProductionStudio.Disney,
-                    ProductionStudio.Paramount).then_by(x => x.date_published.Year);
+                    ProductionStudio.Paramount)
+                    .then_by(x => x.date_published.Year);
 
                 var results = sut.all_movies().sort_using(comparer);
 
