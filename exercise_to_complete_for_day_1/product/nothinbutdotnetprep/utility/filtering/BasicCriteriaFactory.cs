@@ -11,6 +11,11 @@ namespace nothinbutdotnetprep.utility.filtering
             this.property_accessor = property_expression;
         }
 
+        public CriteriaFactory<ItemToFilter, PropertyType> not
+        {
+            get { return new NegatedCriteriaFactory<ItemToFilter, PropertyType>(this); }
+        }
+
         public Criteria<ItemToFilter> equal_to(PropertyType value_to_match)
         {
             return equal_to_any(value_to_match);
@@ -21,5 +26,6 @@ namespace nothinbutdotnetprep.utility.filtering
             return new PropertyCriteria<ItemToFilter, PropertyType>(property_accessor,
                                                                     new EqualToAny<PropertyType>(values));
         }
+
     }
 }

@@ -75,6 +75,7 @@
     <Compile Include="utility\EnumerableExtensions.cs" />
     <Compile Include="utility\filtering\EqualToAny.cs" />
     <Compile Include="utility\filtering\FallsInRange.cs" />
+    <Compile Include="utility\filtering\NegatedCriteriaFactory.cs" />
     <Compile Include="utility\FuncExtensions.cs" />
     <Compile Include="utility\filtering\NotCriteria.cs" />
     <Compile Include="utility\filtering\OrCriteria.cs" />

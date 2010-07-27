@@ -33,19 +33,21 @@ namespace nothinbutdotnetprep.utility.filtering
                                                                                                          range_end)));
         }
 
+        public CriteriaFactory<ItemToFilter, PropertyType> not
+        {
+            get { throw new NotImplementedException(); }
+        }
+
         public Criteria<ItemToFilter> equal_to(PropertyType value_to_match)
         {
             return original.equal_to(value_to_match);
         }
+
 
         public Criteria<ItemToFilter> equal_to_any(params PropertyType[] values)
         {
             return original.equal_to_any(values);
         }
 
-        public Criteria<ItemToFilter> not_equal_to(PropertyType value_to_match)
-        {
-            return original.not_equal_to(value_to_match);
-        }
     }
 }
