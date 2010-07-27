@@ -327,7 +327,7 @@ namespace nothinbutdotnetprep.specs
                                                  ProductionStudio.Disney,
                                                  ProductionStudio.Paramount)
                     .then_by(x => x.date_published.Year)
-                    .then_by(x => x.rating)
+                    .then_by(x => x.rating);
 
                 var results = sut.all_movies().sort_using(comparer);
 

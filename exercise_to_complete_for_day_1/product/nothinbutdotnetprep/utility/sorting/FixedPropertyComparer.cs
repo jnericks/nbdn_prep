@@ -15,7 +15,7 @@ namespace nothinbutdotnetprep.utility.sorting
             rankings = new List<PropertyType>(rank_order);
         }
 
-        public IComparer<ItemToCompare> then_by<PropertyType2>(Func<ItemToCompare, PropertyType2> property_accessor2)
+        public ChainedComparer<ItemToCompare> then_by<PropertyType2>(Func<ItemToCompare, PropertyType2> property_accessor2)
             where PropertyType2 : IComparable<PropertyType2>
         {
             var to_chain = new ComparablePropertyComparer<ItemToCompare, PropertyType2>(property_accessor2);
